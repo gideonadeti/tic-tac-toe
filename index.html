@@ -57,7 +57,7 @@
         type="button"
         class="btn btn-primary mt-3"
         data-bs-toggle="modal"
-        data-bs-target="#players-modal"
+        data-bs-target="#player-names-modal"
       >
         Start Game
       </button>
@@ -78,7 +78,7 @@
               <span class="player-O-score">0</span>
             </div>
           </div>
-          <div class="turns">
+          <div>
             <span class="turn fw-bold fst-italic">John's turn</span>
           </div>
         </div>
@@ -95,18 +95,19 @@
         </div>
       </div>
 
+      <!-- Player names modal -->
       <div
         class="modal fade"
-        id="players-modal"
+        id="player-names-modal"
         tabindex="-1"
-        aria-labelledby="players-modal"
+        aria-labelledby="player-names-modal"
         aria-hidden="true"
       >
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5 fw-bold" id="players-modal-title">
-                Players details
+              <h1 class="modal-title fs-5 fw-bold" id="modal-title">
+                Enter Player Names
               </h1>
               <button
                 type="button"
@@ -152,7 +153,7 @@
                 <button
                   type="submit"
                   class="d-none"
-                  id="submit-player-details"
+                  id="submit-player-names"
                 ></button>
               </form>
             </div>
@@ -167,10 +168,40 @@
               <button
                 type="button"
                 class="btn btn-primary"
-                onclick="document.querySelector('#submit-player-details').click()"
+                onclick="document.querySelector('#submit-player-names').click()"
               >
                 Play
               </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Game outcome modal -->
+      <div
+        class="modal fade"
+        id="game-outcome-modal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="modal-title">Game Outcome</h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <h1 class="fw-bold outcome"></h1>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary new-game">New game</button>
+              <button type="button" class="btn btn-primary next-game">Next game</button>
             </div>
           </div>
         </div>

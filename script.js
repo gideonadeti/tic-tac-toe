@@ -117,6 +117,7 @@ const GameController = (() => {
 
     if (!nextGame) {
       View.updatePlayerNames(playerX.getName(), playerO.getName())
+      resetTieScore()
     }
 
     View.updateScores(playerX.getScore(), playerO.getScore(), tieScore)
@@ -124,23 +125,148 @@ const GameController = (() => {
   }
 
   const startNextGame = () => {
-    View.hideGameOutcome()
     startNewGame(playerX, playerO, true)
-  }
-
-  const startNewRound = () => {
-    resetTieScore()
-    Gameboard.resetBoard()
-
-    View.clearGameContainer()
-    View.hideGameOutcome()
-    View.showPlayersDetails()
   }
 
   return {
     startNewGame,
     startNextGame,
-    startNewRound,
     handleCellClick
+  }
+})()
+
+const View = (() => {
+  const playerNamesModal = document.querySelector('#player-names-modal')
+  const gameOutcomeModal = document.querySelector('#game-outcome-modal')
+  const playersNamesForm = playerNamesModal.querySelector('form')
+  const closeModalBtns = document.querySelectorAll('.close-modal')
+
+  const gameContainer = document.querySelector('.game-container')
+  const newGameBtn = document.querySelector('.new-game')
+  const nextGameBtn = document.querySelector('.next-game')
+
+  nextGameBtn.addEventListener('click', GameController.startNextGame())
+  newGameBtn.addEventListener('click', () => {
+    clearGameContainer()
+    hideModal(gameOutcomeModal)
+    playerNamesModal.showModal()
+  })
+
+  closeModalBtns.forEach((closeModalBtn) => {
+    closeModalBtn.addEventListener('click', () => {
+      // Select the form within the (closest) modal
+      const form = closeModalBtn.closest('.modal').querySelector('form')
+
+      if (form) {
+        form.reset()
+        form.classList.remove('was-validated')
+      }
+    })
+  })
+
+  playersNamesForm.addEventListener('submit', (event) => {
+    console.log('here')
+    event.preventDefault()
+
+    if (!playersNamesForm.checkValidity()) {
+      event.stopPropagation()
+    }
+
+    playersNamesForm.classList.add('was-validated')
+
+    if (playersNamesForm.checkValidity()) {
+      const { playerXName, playerOName } = getPlayersNames()
+      const { playerX, playerO } = createPlayers(playerXName, playerOName)
+
+      GameController.startNewGame(playerX, playerO)
+
+      hideModal(playerNamesModal)
+
+      playersNamesForm.reset()
+      playersNamesForm.classList.remove('was-validated')
+    }
+  })
+
+  const hideModal = (modal) => {
+    bootstrap.Modal.getInstance(modal).hide()
+  }
+
+  const getPlayersNames = () => {
+    const playerXName = playersNamesForm.querySelector('.player-X-name')
+    const playerOName = playersNamesForm.querySelector('.player-O-name')
+    return { playerXName, playerOName }
+  }
+
+  const createPlayers = (playerXName, playerOName) => {
+    const playerX = Player(playerXName, 'X')
+    const playerO = Player(playerOName, 'O')
+
+    return { playerX, playerO }
+  }
+
+  const updatePlayerNames = (playerXName, playerOName) => {
+    gameContainer.querySelector(
+      '.player-X-name'
+    ).textContent = `${playerXName} (X)`
+    gameContainer.querySelector(
+      '.player-O-name'
+    ).textContent = `${playerOName} (O)`
+    gameContainer.querySelector('.vs').textContent = 'Vs.'
+  }
+
+  const updateScores = (playerXScore, playerOScore, tieScore) => {
+    gameContainer.querySelector('.player-X-score').textContent = playerXScore
+    gameContainer.querySelector('.player-O-score').textContent = playerOScore
+    gameContainer.querySelector('.tie-score').textContent = tieScore
+  }
+
+  const updateTurn = (currentPlayer, alert = false) => {
+    const turnSpan = gameContainer.querySelector('.turn')
+    turnSpan.textContent = alert
+      ? `${currentPlayer}, that space is already occupied!`
+      : `${currentPlayer}'s turn`
+  }
+
+  const updateCell = (cellId, playerSymbol) => {
+    document.querySelector(`#${cellId}`).textContent = playerSymbol
+  }
+
+  const clearCells = () => {
+    document.querySelectorAll('.cell').forEach((cell) => {
+      cell.textContent = ''
+    })
+  }
+
+  const showGameOutcome = (winner) => {
+    gameOutcomeModal.querySelector('.outcome').textContent =
+      winner === 'tie' ? "It's a tie!" : `${winner} wins!`
+    gameOutcomeModal.showModal()
+  }
+
+  const clearGameContainer = () => {
+    gameContainer.querySelector('.player-X-name').textContent = ''
+    gameContainer.querySelector('.player-O-name').textContent = ''
+    gameContainer.querySelector('.vs').textContent = ''
+    gameContainer.querySelector('.player-X-score').textContent = ''
+    gameContainer.querySelector('.player-O-score').textContent = ''
+    gameContainer.querySelector('.tie-score').textContent = ''
+    gameContainer.querySelector('.turn').textContent = ''
+    clearCells()
+  }
+
+  document.querySelectorAll('.cell').forEach((cell) => {
+    cell.addEventListener('click', (event) =>
+      GameController.handleCellClick(event.target.id)
+    )
+  })
+
+  return {
+    updatePlayerNames,
+    updateScores,
+    updateTurn,
+    updateCell,
+    clearCells,
+    showGameOutcome,
+    clearGameContainer
   }
 })()
