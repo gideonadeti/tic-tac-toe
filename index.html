@@ -83,7 +83,7 @@
               ></button>
             </div>
             <div class="modal-body">
-              <form>
+              <form novalidate>
                 <div class="mb-3">
                   <label for="player-X-name" class="form-label mb-0"
                     >Player X name</label
@@ -95,6 +95,10 @@
                     placeholder="E.g. John"
                     required
                   />
+                  <div class="valid-feedback">Looks good!</div>
+                  <div class="invalid-feedback">
+                    Please enter Player X's name
+                  </div>
                 </div>
                 <div>
                   <label for="player-O-name" class="form-label mb-0"
@@ -107,6 +111,10 @@
                     placeholder="E.g. Jane"
                     required
                   />
+                  <div class="valid-feedback">Looks good!</div>
+                  <div class="invalid-feedback">
+                    Please enter Player O's name
+                  </div>
                 </div>
                 <button
                   type="submit"

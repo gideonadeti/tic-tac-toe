@@ -1,3 +1,24 @@
+const playersDetailsForm = document.querySelector("form");
+const playersModal = document.querySelector("#players-modal");
+
+playersDetailsForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  if (!playersDetailsForm.checkValidity()) {
+    event.stopPropagation();
+  }
+
+  playersDetailsForm.classList.add("was-validated");
+
+  if (playersDetailsForm.checkValidity()) {
+    const modal = bootstrap.Modal.getInstance(playersModal);
+    modal.hide();
+
+    playersDetailsForm.reset();
+    playersDetailsForm.classList.remove("was-validated");
+  }
+});
+
 const Gameboard = (() => {
   let board = ["", "", "", "", "", "", "", "", ""];
 
