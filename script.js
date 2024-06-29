@@ -19,6 +19,10 @@ playersDetailsForm.addEventListener("submit", (event) => {
   playersDetailsForm.classList.add("was-validated");
 
   if (playersDetailsForm.checkValidity()) {
+    let { playerXName, playerOName } = getPlayerNames();
+
+    let { playerX, playerO } = createPlayers(playerXName, playerOName);
+
     const modal = bootstrap.Modal.getInstance(playersModal);
     modal.hide();
 
@@ -26,6 +30,20 @@ playersDetailsForm.addEventListener("submit", (event) => {
     playersDetailsForm.classList.remove("was-validated");
   }
 });
+
+function getPlayerNames() {
+  let playerXName = playersDetailsForm.querySelector("#player-X-name").value;
+  let playerOName = playersDetailsForm.querySelector("#player-O-name").value;
+
+  return { playerXName, playerOName };
+}
+
+function createPlayers(playerXName, playerOName) {
+  const playerX = Player(playerXName, "X");
+  const playerO = Player(playerOName, "O");
+
+  return { playerX, playerO };
+}
 
 const Gameboard = (() => {
   let board = ["", "", "", "", "", "", "", "", ""];
