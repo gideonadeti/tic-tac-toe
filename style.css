@@ -26,7 +26,7 @@ span[class$="score"] {
   font-size: 1.5rem;
 }
 
-.gameboard {
+.cells {
   display: grid;
   grid-template-columns: repeat(3, minmax(90px, 120px));
   grid-template-rows: repeat(3, minmax(90px, 120px));
@@ -39,7 +39,7 @@ span[class$="score"] {
   font-size: 64px;
   cursor: pointer;
   transition: background-color 0.3s;
-  border-radius: 10%;
+  border-radius: 12.5%;
 }
 
 .cell:hover {
