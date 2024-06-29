@@ -1,5 +1,13 @@
 const playersDetailsForm = document.querySelector("form");
 const playersModal = document.querySelector("#players-modal");
+const closeModalBtns = document.querySelectorAll(".close-modal");
+
+closeModalBtns.forEach((closeModalBtn) => {
+  closeModalBtn.addEventListener("click", () => {
+    playersDetailsForm.reset();
+    playersDetailsForm.classList.remove("was-validated");
+  });
+});
 
 playersDetailsForm.addEventListener("submit", (event) => {
   event.preventDefault();
