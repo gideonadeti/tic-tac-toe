@@ -8,17 +8,56 @@ h3,
 h4,
 h5,
 h6 {
-	font-family: "Montserrat", sans-serif;
+  font-family: "Montserrat", sans-serif;
 }
 
 body {
-	font-family: "Roboto", sans-serif;
+  font-family: "Roboto", sans-serif;
+}
+
+.players > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+span[class$="score"] {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+.gameboard {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(90px, 120px));
+  grid-template-rows: repeat(3, minmax(90px, 120px));
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  border-radius: 10%;
+}
+
+.cell:hover {
+  background-color: rgba(0, 0, 0, 0.25);
+}
+
+.cell:not(:nth-child(3n)) {
+  border-right: 4px solid black;
+}
+
+.cell:not(:nth-last-child(-n + 3)) {
+  border-bottom: 4px solid black;
 }
 
 footer a {
-	text-decoration: none;
+  text-decoration: none;
 }
 
 footer a:hover {
-	text-decoration: underline;
+  text-decoration: underline;
 }

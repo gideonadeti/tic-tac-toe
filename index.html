@@ -62,6 +62,39 @@
         Start Game
       </button>
 
+      <div class="game-container mt-3">
+        <div class="game-stats d-flex flex-column align-items-center">
+          <div class="players d-flex align-items-center gap-3">
+            <div class="player-X">
+              <h3 class="player-X-name mb-0">John (x)</h3>
+              <span class="player-X-score">0</span>
+            </div>
+            <div>
+              <h3 class="vs mb-0">Vs.</h3>
+              <span class="tie-score">0</span>
+            </div>
+            <div class="player-O">
+              <h3 class="player-O-name mb-0">Jane (O)</h3>
+              <span class="player-O-score">0</span>
+            </div>
+          </div>
+          <div class="turns">
+            <span class="turn fw-bold fst-italic">John's turn</span>
+          </div>
+        </div>
+        <div class="gameboard mt-3">
+          <div class="cell" id="0"></div>
+          <div class="cell" id="1"></div>
+          <div class="cell" id="2"></div>
+          <div class="cell" id="3"></div>
+          <div class="cell" id="4"></div>
+          <div class="cell" id="5"></div>
+          <div class="cell" id="6"></div>
+          <div class="cell" id="7"></div>
+          <div class="cell" id="8"></div>
+        </div>
+      </div>
+
       <div
         class="modal fade"
         id="players-modal"
